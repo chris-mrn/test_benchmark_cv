@@ -19,14 +19,12 @@ class Solver(BaseSolver):
         # `Objective.get_objective`. This defines the benchmark's API for
         # passing the objective to the solver.
         # It is customizable for each benchmark.
-        print(y[:10])
         self.X, self.y = X, y
         self.clf = MDM(metric="euclid")
 
     def run(self, n_iter):
         # This is the function that is called to evaluate the solver.
         # It runs the algorithm for a given a number of iterations `n_iter`.
-        print("dans le run le train est", self.y[:10])
         self.clf.fit(self.X, self.y)
 
     def get_next(self, n_iter):

@@ -25,10 +25,7 @@ class Objective(BaseObjective):
     # go here to solve the issue :
     # https://stackoverflow.com/questions/51006930/upstream-git-tag-is-not-showing-in-forked-repository
 
-    evaluation_process = 'cross_validation'
-    n_splits = 5
-    # you need first to define the number of splits you want to do
-    cv = KFold(n_splits=n_splits, random_state=42, shuffle=True)
+    cv = KFold(n_splits=5, random_state=42, shuffle=True)
     # cv object from sklearn
 
     def set_data(self, X, y):
@@ -77,7 +74,7 @@ class Objective(BaseObjective):
         # if the evaluation process is cross_validation, get_split
         # will iterate de split of the data
 
-        X_train, X_test, y_train, y_test = self.get_split_array(self.X, self.y)
+        X_train, X_test, y_train, y_test = self.get_split(self.X, self.y)
 
         self.X_train, self.y_train = X_train, y_train
         self.X_test, self.y_test = X_test, y_test

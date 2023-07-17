@@ -57,6 +57,9 @@ class Objective(BaseObjective):
     def split(self, i_train, i_test):
         # This function is called by the benchmark to split the data
         # into train and test set. This is customizable for each benchmark.
+        # if you work with arrays you don't need to define this function
+        # you can call directly call the function
+        # get_split_array in get_objective
 
         X_train = []
         y_train = []
@@ -71,9 +74,11 @@ class Objective(BaseObjective):
         # benchmark's API for passing the objective to the solver.
         # It is customizable for each benchmark.
 
-        # get_split will definie the split for the cross_val
+        # if the evaluation process is cross_validation, get_split
+        # will iterate de split of the data
 
         X_train, X_test, y_train, y_test = self.get_split_array(self.X, self.y)
+
         self.X_train, self.y_train = X_train, y_train
         self.X_test, self.y_test = X_test, y_test
 

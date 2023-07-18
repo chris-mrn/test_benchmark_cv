@@ -6,7 +6,6 @@ from benchopt import BaseObjective, safe_import_context
 
 with safe_import_context() as import_ctx:
     from sklearn.model_selection import KFold
-    import numpy as np
 # et peut être ici définir un import vers la fonction qui
 # fera bien la cross_validation
 
@@ -52,29 +51,6 @@ class Objective(BaseObjective):
                     value=-score_test,
                     score_train=score_train)
 
-    def split(self, index_train, index_test):
-        # This function is called by the benchmark to split the data.
-        # It is customizable for each benchmark.
-        X_train = []
-        X_test = []
-        y_train = []
-        y_test = []
-
-        for index in index_train:
-            X_train.append(self.X[index])
-            y_train.append(self.y[index])
-
-        for index in index_test:
-            X_test.append(self.X[index])
-            y_test.append(self.y[index])
-
-        X_train = np.array(X_train)
-        X_test = np.array(X_test)
-        y_train = np.array(y_train)
-        y_test = np.array(y_test)
-
-        return X_train, X_test, y_train, y_test
-
     def get_objective(self):
         # Define the information to pass to each solver to run the benchmark.
         # The output of this function are the keyword arguments
@@ -82,8 +58,8 @@ class Objective(BaseObjective):
         # benchmark's API for passing the objective to the solver.
         # It is customizable for each benchmark.
 
-        # if the evaluation process is cross_validation, get_split
-        # will iterate de split of the data
+        # if you have define a cv objective, get_split
+        # will iterate the split of the data using the cv object
 
         X_train, X_test, y_train, y_test = self.get_split(self.X, self.y)
 

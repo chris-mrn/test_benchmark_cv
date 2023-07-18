@@ -5,8 +5,8 @@ from benchopt import BaseDataset, safe_import_context
 # - skipping import to speed up autocompletion in CLI.
 # - getting requirements info when all dependencies are not installed.
 with safe_import_context() as import_ctx:
-
     import pickle
+    import numpy as np
 
 # All datasets must be named `Dataset` and inherit from `BaseDataset`
 
@@ -35,8 +35,8 @@ class Dataset(BaseDataset):
 
         matrices = out_pickle['data']
         classes = out_pickle['labels_code']
-        X = matrices
-        y = classes
+        X = np.array(matrices)
+        y = np.array(classes)
 
         # The dictionary defines the keyword arguments for `Objective.set_data`
         return dict(X=X, y=y)
